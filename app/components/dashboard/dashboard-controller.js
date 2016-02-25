@@ -1,5 +1,9 @@
 app.controller('DashboardController', function($rootScope, $scope, User, Models, authData){
 	
+	Models.Customer.findAll({}).then(function(){
+		Models.Customer.bindAll({where: {userId: authData.uid}}, $scope, 'customers');
+	})
+	
 	$scope.updateMember = function(){
 		User.update(authData.uid, $rootScope.member);
 	}
@@ -13,12 +17,8 @@ app.controller('DashboardController', function($rootScope, $scope, User, Models,
 		$scope.newCustomer = '';
 	}
 	
-	Models.Customer.findAll({}).then(function(){
-		Models.Customer.bindAll({where: {userId: authData.uid}}, $scope, 'customers');
-	})
-	
 	$scope.updateCustomer = function(customer){
-		Models.Customer.update(customer.id, customer);
+		customer.DSSave();
 		$scope.edit = false;
 	}
 	

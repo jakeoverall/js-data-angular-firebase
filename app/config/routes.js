@@ -3,13 +3,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 		$stateProvider
 			.state('home', {
-				url: '',
+				url: '/',
 				templateUrl: '/app/components/home/home.html',
 				controller: 'HomeController'
 			})
 			.state('auth', {
 				abstract: true,
-				url: '/',
+				url: '',
 				template: '<ui-view></ui-view>',
 				resolve: {
 					authData: function(AuthService, $state){

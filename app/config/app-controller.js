@@ -6,7 +6,9 @@ app.controller('AppController', function ($scope, $state) {
 			return console.log(error);
 		}
 		console.log(memberData);
-		$state.go('auth.dashboard');
+		if($state.current.name.indexOf('auth') < 0){
+			$state.go('auth.dashboard');
+		}
 	};
 
 

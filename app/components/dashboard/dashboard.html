@@ -16,7 +16,7 @@ Welcome {{member.name}}, What a sweet dashboard!
 	<button type="submit" class="btn btn-large btn-block btn-primary">Update</button>
 </form>
 
-<form ng-submit="addCustomer()" ng-if="!edit">
+<form ng-submit="addCustomer()" ng-show="!edit">
 	<div class="form-group">
 		<label>Customer Name:</label>
 		<input type="text" class="form-control" ng-model="newCustomer.name">
@@ -39,7 +39,7 @@ Welcome {{member.name}}, What a sweet dashboard!
 	<button type="submit" class="btn btn-large btn-block btn-primary">Add New Customer</button>
 </form>
 
-<form ng-submit="updateCustomer(editing)" ng-if="edit">
+<form ng-submit="updateCustomer(editing)" ng-show="edit">
 	<div class="form-group">
 		<label>Customer Name:</label>
 		<input type="text" class="form-control" ng-model="editing.name">
