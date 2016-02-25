@@ -1,5 +1,5 @@
 app.config(function(DSFirebaseAdapterProvider){
-    var basePath = 'https://boise.firebaseio.com';
+    var basePath = 'https://bcw-js-data.firebaseio.com/';
     DSFirebaseAdapterProvider.defaults.basePath = basePath;
 });
 
