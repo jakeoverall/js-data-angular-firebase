@@ -36,4 +36,4 @@ app.run(function(DS, DSFirebaseAdapter, User){
         }
       });
     });
-})
+});

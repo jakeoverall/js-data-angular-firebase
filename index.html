@@ -3,8 +3,8 @@
     <meta charset="UTF-8">
     <title>JS-Data</title>
 </head>
-<body>
-    
+<body ng-controller="AppController">
+    <firebase-auth auth="onauthCallback" unauth="unauthCallback"></firebase-auth>
 		<ui-view></ui-view>
     
     <!--Load Libraries-->
@@ -16,9 +16,15 @@
     <script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
     
     <!--Load App-->
-		<script src="app/auth/auth-service.js"></script>
+		<script src="app/auth/auth-component.js"></script>
     <script src="app/config/init.js"></script>
-    <script src="app/config/data-service.js"></script>
+		<script src="app/config/app-controller.js"></script>
+    <script src="app/config/data-adapter.js"></script>
+		<script src="app/config/data-models.js"></script>
     <script src="app/config/routes.js"></script>
+		
+		<script src="app/components/home/home-controller.js"></script>
+		<script src="app/components/dashboard/dashboard-controller.js"></script>
+		
 </body>
 </html>

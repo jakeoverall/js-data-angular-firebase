@@ -1,34 +1,22 @@
 (function () {
 
-
 	angular
 		.module('jsData.firebaseAuth', [
 			'js-data',
 			'ui.router'
 		])
-
-		.config(function ($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise('/login');
-
-			$stateProvider
-				.state('login', {
-					url: '/login',
-					templateUrl: '/app/auth/auth-form.html',
-					controller: 'AuthController'
-				})
-		})
-
-		.run(function ($rootScope, $state, AuthService) {
-			$rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
-				var invalidUser = AuthService.authMember();
-				if (invalidUser) {
-					//FORCES AUTHENTICATION
-					if (toState.name !== 'login') {
-						event.preventDefault()
-						$state.go('login')
-					}
-				}
-			});
+		
+		.directive('firebaseAuth', function(){
+			return {
+				restrict: 'AE',
+				controller: 'AuthController',
+				controllerAs: 'ac',
+				scope: {
+					auth: '&',
+					unauth: '&'
+				},
+				templateUrl: '/app/auth/auth-form.html'
+			}
 		})
 
 		.factory('User', function (DS) {
@@ -44,13 +32,14 @@
 					cb ? cb({ error: { message: 'Unable to Authenticate' } }) : '';
 					return true;
 				}
+				console.log('AuthData: ', authData);
 				setMember(authData.uid, cb);
 			}
 
 			function setMember(id, cb) {
-				User.find(id).then(function(){
+				User.find(id).then(function(member){
 					User.bindOne(id, $rootScope, 'member');
-					cb ? cb() : '';
+					cb ? cb(null, member) : '';
 				})
 			}
 
@@ -89,33 +78,43 @@
 		})
 
 		.controller('AuthController', function ($scope, $state, AuthService) {
-
+			var ac = this;
+			AuthService.authMember(handleDBResponse);
 			$scope.login = function () {
 				clearErr();
-				AuthService.login($scope.user, handleDBResponse);
+				AuthService.login(ac.user, handleDBResponse);
 			};
 
 			$scope.register = function () {
 				clearErr();
-				AuthService.register($scope.user, handleDBResponse);
+				AuthService.register(ac.user, handleDBResponse);
 			};
 			
 			$scope.logout = function () {
 				clearErr();
 				AuthService.logout();
+				ac.member = null;
+				if($scope.unauth){
+					$scope.unauth()();
+				}
 			};
 			
 			function clearErr() {
 				$scope.authErr = '';
 			}
 
-			function handleDBResponse(err) {
+			function handleDBResponse(err, memberData) {
+				if(memberData){
+					ac.member = memberData;
+				}
+				if($scope.auth){
+					$scope.auth()(err, memberData);
+					return;
+				}
 				if (err) {
 					$scope.authErr = err.message;
 					$scope.$apply();
-				} else {
-					//$state.go('dashboard');
-				}
+				} 
 			}
 		})
 
