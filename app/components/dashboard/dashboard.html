@@ -1,22 +1,44 @@
-What a sweet dashboard!
-
-{{member}}
-
+Welcome {{member.name}}, What a sweet dashboard!
 <form ng-submit="updateMember()">
 	<div class="form-group">
-		<label for="email">Email:</label>
+		<label>Email:</label>
 		<input type="text" class="form-control" ng-model="member.email">
 	</div>
 	<div class="form-group">
-		<label for="email">Name:</label>
+		<label>Name:</label>
 		<input type="text" class="form-control" ng-model="member.name">
 	</div>
 	<div class="form-group">
-		<label for="email">Profile Image:</label>
+		<label>Profile Image:</label>
 		<input type="url" class="form-control" ng-model="member.profileImageUrl">
-		<img ng-src="{{member.profileImageUrl}}" alt="{{member.name}}">
-	</div>
-	
+		<img ng-src="{{member.profileImageUrl}}" alt="{{member.name}}" height="100">
+	</div>	
 	<button type="submit" class="btn btn-large btn-block btn-primary">Update</button>
-	
 </form>
+
+<form ng-submit="addCustomer()">
+	<div class="form-group">
+		<label>Customer Name:</label>
+		<input type="text" class="form-control" ng-model="newCustomer.name">
+	</div>
+	<div class="form-group">
+		<div class="form-group-label">Address:</div>
+		<label>Street:</label>
+		<input type="text" class="form-control" ng-model="newCustomer.address.street">
+		<label>City:</label>
+		<input type="text" class="form-control" ng-model="newCustomer.address.city">
+		<label>State:</label>
+		<input type="text" class="form-control" ng-model="newCustomer.address.state">
+		<label>zip:</label>
+		<input type="text" class="form-control" ng-model="newCustomer.address.zip">
+	</div>
+	<div class="form-group">
+		<label>Phone Number:</label>
+		<input class="form-control" ng-model="newCustomer.phoneNumber">
+	</div>	
+	<button type="submit" class="btn btn-large btn-block btn-primary">Add New Customer</button>
+</form>
+
+<ul>
+	<li ng-repeat="customer in customers">{{customer.name}}</li>
+</ul>

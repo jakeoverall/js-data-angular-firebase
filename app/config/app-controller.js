@@ -6,7 +6,7 @@ app.controller('AppController', function ($scope, $state) {
 			return console.log(error);
 		}
 		console.log(memberData);
-		$state.go('dashboard');
+		$state.go('auth.dashboard');
 	};
 
 

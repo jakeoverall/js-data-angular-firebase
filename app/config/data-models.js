@@ -11,6 +11,12 @@ app.factory('Models', function(DS){
 			name: 'customer',
 			endpoint: 'customers',
 			relations: {
+				belongsTo:{
+					user: {
+						localField: 'user',
+						foreignKey: 'userId'
+					}
+				},
 				hasMany: {
 					orders: {
 						localField: 'orders',

@@ -5,6 +5,11 @@
 </head>
 <body ng-controller="AppController">
     <firebase-auth auth="onauthCallback" unauth="unauthCallback"></firebase-auth>
+		<div class="nav-bar" ng-if="member">
+			<a ui-sref="auth.dashboard">Dashboard</a>
+			<a ui-sref="auth.orders">Orders</a>
+			<a ui-sref="auth.adminPanel">Admin Panel</a>
+		</div>
 		<ui-view></ui-view>
     
     <!--Load Libraries-->
@@ -17,6 +22,7 @@
     
     <!--Load App-->
 		<script src="app/auth/auth-component.js"></script>
+		<script src="app/auth/user-model.js"></script>
     <script src="app/config/init.js"></script>
 		<script src="app/config/app-controller.js"></script>
     <script src="app/config/data-adapter.js"></script>
@@ -25,6 +31,8 @@
 		
 		<script src="app/components/home/home-controller.js"></script>
 		<script src="app/components/dashboard/dashboard-controller.js"></script>
+		<script src="app/components/admin/admin-controller.js"></script>
+		<script src="app/components/orders/orders-controller.js"></script>
 		
 </body>
 </html>

@@ -19,10 +19,6 @@
 			}
 		})
 
-		.factory('User', function (DS) {
-			return DS.defineResource('user');
-		})
-
 		.factory('AuthService', function ($rootScope, DSFirebaseAdapter, User) {
 			var db = DSFirebaseAdapter.ref;
 
@@ -32,14 +28,13 @@
 					cb ? cb({ error: { message: 'Unable to Authenticate' } }) : '';
 					return true;
 				}
-				console.log('AuthData: ', authData);
 				setMember(authData.uid, cb);
 			}
 
 			function setMember(id, cb) {
-				User.find(id).then(function(member){
+				return User.find(id).then(function(member){
 					User.bindOne(id, $rootScope, 'member');
-					cb ? cb(null, member) : '';
+					return cb ? cb(null, member) : '';
 				})
 			}
 
@@ -73,7 +68,10 @@
 					db.unauth();
 					$rootScope.member = null;
 				},
-				authMember: authMember
+				authMember: authMember,
+				getAuth: function(){
+					return db.getAuth();
+				}
 			}
 		})
 
