@@ -1,5 +1,5 @@
 var app = angular.module('jsDataFirebase', [
     'js-data',
-		'jsData.firebaseAuth',
+    'jsData.firebaseAuth',
     'ui.router'
 ])

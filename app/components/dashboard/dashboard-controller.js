@@ -18,6 +18,8 @@ app.controller('DashboardController', function($rootScope, $scope, User, Models,
 	}
 	
 	$scope.updateCustomer = function(customer){
+        //Remove $$hashkey prior to saving
+        delete customer.$$hashKey
 		customer.DSSave();
 		$scope.edit = false;
 	}
